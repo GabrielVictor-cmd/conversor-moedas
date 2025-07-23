@@ -3,6 +3,7 @@ const select_moeda_estrangeira = document.getElementById("select-moeda-estrangei
 
 const dolar = 5
 const euro = 6
+const bitcoin =  655352
 
 function converter_valores() {
   const input_real = document.getElementById("input-real").value
@@ -27,7 +28,14 @@ function converter_valores() {
       currency: "EUR",
     }).format(input_real / euro)
   }
-  
+
+  if (select_moeda_estrangeira.value === "Bitcoin") {
+    valor_estrangeiro_texto.innerHTML = new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "BTC",
+      minimumFractionDigits: 10,
+    }).format(input_real / bitcoin.toFixed(19))
+  }  
 }
 
 function mudar_moeda() {
@@ -41,6 +49,10 @@ function mudar_moeda() {
   } else if (select_moeda_estrangeira.value === "US$ Dólar estadunidense") {
     moeda_nome.innerHTML = "Dólar estadunidense"
     bandeira_estrangeira.src = "imagens/usa.png"
+
+  } else if (select_moeda_estrangeira.value === "Bitcoin") {
+    moeda_nome.innerHTML = "Bitcoin"
+    bandeira_estrangeira.src = "imagens/bitcoin.png"
   }
   converter_valores()
 }
